@@ -1,0 +1,157 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-russo), var(--font-barlow), sans-serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --animate-spin-fast: spin 0.6s linear infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-flame: flame 0.18s ease-in-out infinite alternate;
+  --animate-needle: needle 3.2s cubic-bezier(0.6, 0, 0.3, 1) infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes flame {
+    from {
+      transform: scaleX(0.85) scaleY(0.9);
+      opacity: 0.75;
+    }
+    to {
+      transform: scaleX(1.15) scaleY(1.05);
+      opacity: 1;
+    }
+  }
+  @keyframes needle {
+    0% {
+      transform: rotate(-120deg);
+    }
+    45% {
+      transform: rotate(105deg);
+    }
+    55% {
+      transform: rotate(98deg);
+    }
+    62% {
+      transform: rotate(110deg);
+    }
+    100% {
+      transform: rotate(-120deg);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+  --background: oklch(0.13 0.005 260);
+  --foreground: oklch(0.96 0.005 100);
+  --card: oklch(0.18 0.006 260);
+  --card-foreground: oklch(0.96 0.005 100);
+  --popover: oklch(0.18 0.006 260);
+  --popover-foreground: oklch(0.96 0.005 100);
+  --primary: oklch(0.88 0.26 142);
+  --primary-foreground: oklch(0.15 0.02 142);
+  --secondary: oklch(0.23 0.006 260);
+  --secondary-foreground: oklch(0.96 0.005 100);
+  --muted: oklch(0.22 0.006 260);
+  --muted-foreground: oklch(0.7 0.01 260);
+  --accent: oklch(0.72 0.2 50);
+  --accent-foreground: oklch(0.15 0.02 50);
+  --destructive: oklch(0.63 0.24 27);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.88 0.26 142);
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@utility carbon {
+  background-color: oklch(0.15 0.005 260);
+  background-image:
+    linear-gradient(45deg, oklch(0.19 0.005 260) 25%, transparent 25%),
+    linear-gradient(-45deg, oklch(0.19 0.005 260) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, oklch(0.11 0.005 260) 75%),
+    linear-gradient(-45deg, transparent 75%, oklch(0.11 0.005 260) 75%);
+  background-size: 8px 8px;
+  background-position:
+    0 0,
+    0 4px,
+    4px -4px,
+    -4px 0;
+}
+
+@utility hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--accent) 0 14px,
+    oklch(0.13 0.005 260) 14px 28px
+  );
+}
+
+@utility clip-slant {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+}
+
+@utility clip-card {
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+
+@utility text-glow {
+  text-shadow:
+    0 0 18px color-mix(in oklch, var(--primary) 55%, transparent),
+    0 0 2px color-mix(in oklch, var(--primary) 80%, transparent);
+}
